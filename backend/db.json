@@ -1,0 +1,18 @@
+{
+  "tarefas": [
+    {
+      "id": 5,
+      "descricao": "Trocar lâmpada",
+      "categoria": "Casa",
+      "statusFinalizado": false,
+      "prioridade": "Alta"
+    },
+    {
+      "id": 6,
+      "descricao": "Ler",
+      "statusFinalizado": false,
+      "categoria": "Estudos",
+      "prioridade": "Alta"
+    }
+  ]
+}
