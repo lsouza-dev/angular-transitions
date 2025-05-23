@@ -4,9 +4,7 @@
       Criar nova tarefa
     </button>
   </div>
-  <form 
-    @shownState
-    class="formulario ff-prompt"
+  <form class="formulario ff-prompt"
     [formGroup]="formulario"
     *ngIf="formAberto">
     <label for="descricao">Descrição da tarefa</label>
@@ -69,14 +67,18 @@
     <h2>Suas tarefas</h2>
     <img src="assets/imagens/ilustracao-Tarefas.png"
         alt="Ilustração de um ambiente com mesa, computador, quadro e um vaso com planta">
-  </div>
-  <div *ngIf="listaTarefas.length > 0, else semTarefas">
+      </div>
+      <div class="busca">
+        <p class="ff-prompt">Procurando o que fazer?</p>
+        <input type="search" id="campo-busca" 
+        placeholder="Busque por uma tarefa "
+        [(ngModel)]="campoBusca"
+        (keyup)="  filtrarTarefaPorDescricao(campoBusca)">
+      </div>
+  <div *ngIf="tarefasFiltradas.length > 0, else semTarefas">
     <div
-      class="lista-tarefas card-{{ tarefa.categoria }}"
-      *ngFor="let tarefa of listaTarefas; let i = index"
-      (mouseover)="indexTarefa = i"
-      [@highlitedState]="indexTarefa === i ? 'highlited' : 'default'"
-      >
+    class="lista-tarefas card-{{ tarefa.categoria }}"
+      *ngFor="let tarefa of tarefasFiltradas">
       <div class="info-card">
         <p class="categoria-tarefa categoria-{{ tarefa.categoria }}">
           <img
@@ -90,7 +92,6 @@
         <p class="status-tarefa">
           <button
             [ngClass]="(tarefa.statusFinalizado == true) ? 'icone-checked' : 'icone-unchecked'"
-            [@checkTask]="tarefa.id === id ? 'checked' : 'unchecked'"
             (click)="finalizarTarefa(tarefa.id);">
           </button>
         </p>
