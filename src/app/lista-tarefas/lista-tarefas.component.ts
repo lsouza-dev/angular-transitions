@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TarefaService } from 'src/app/service/tarefa.service';
 import { Tarefa } from '../interface/tarefa';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { checkButtonTrigger, filterTrigger, highlitedStateTrigger, shownStateTrigger } from '../animations';
 
 @Component({
   selector: 'app-lista-tarefas',
   templateUrl: './lista-tarefas.component.html',
-  styleUrls: ['./lista-tarefas.component.css']
+  styleUrls: ['./lista-tarefas.component.css'],
+  animations: [highlitedStateTrigger,shownStateTrigger,checkButtonTrigger,filterTrigger]
 })
 export class ListaTarefasComponent implements OnInit {
 
@@ -16,8 +18,10 @@ export class ListaTarefasComponent implements OnInit {
   formAberto: boolean = false;
   categoria: string = '';
   validado: boolean = false;
-  campoBusca!: string
-  tarefasFiltradas: Tarefa[] = []
+  indexTarefa = -1;
+  id:number = 0;  
+  campoBusca!:string
+  tarefasFiltradas:Tarefa[] =[]
 
   formulario: FormGroup = this.fomBuilder.group({
     id: [0],
@@ -36,7 +40,7 @@ export class ListaTarefasComponent implements OnInit {
   ngOnInit(): Tarefa[] {
     this.service.listar(this.categoria).subscribe((listaTarefas) => {
       this.listaTarefas = listaTarefas;
-      this.tarefasFiltradas= listaTarefas;
+      this.tarefasFiltradas = listaTarefas;
     });
     return this.tarefasFiltradas;
   }
@@ -145,7 +149,9 @@ export class ListaTarefasComponent implements OnInit {
 
   filtrarTarefaPorDescricao(descricao: string) {
     this.campoBusca = descricao.trim().toLocaleLowerCase();
-    if(descricao) this.tarefasFiltradas = this.listaTarefas.filter(tarefa => tarefa.descricao.toLowerCase().includes(this.campoBusca))
-    else this.tarefasFiltradas = this.listaTarefas
-  }
+    if(descricao)
+      this.tarefasFiltradas = this.listaTarefas.filter(tarefa => tarefa.descricao.toLowerCase().includes(this.campoBusca))
+    else 
+    this.tarefasFiltradas = this.listaTarefas;
+}
 }
