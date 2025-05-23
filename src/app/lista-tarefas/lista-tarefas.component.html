@@ -70,10 +70,15 @@
     <img src="assets/imagens/ilustracao-Tarefas.png"
         alt="Ilustração de um ambiente com mesa, computador, quadro e um vaso com planta">
   </div>
-  <div *ngIf="listaTarefas.length > 0, else semTarefas">
+  <div class="busca">
+    <p class="ff-prompt">O que está buscando?</p>
+    <input type="search" id="campo-busca" placeholder="Digite o que procura" [(ngModel)]="campoBusca" (keyup)="filtrarTarefaPorDescricao(campoBusca)">
+  </div>
+  <div *ngIf="tarefasFiltradas.length > 0, else semTarefas">
     <div
+      @filterAnimation
       class="lista-tarefas card-{{ tarefa.categoria }}"
-      *ngFor="let tarefa of listaTarefas; let i = index"
+      *ngFor="let tarefa of tarefasFiltradas; let i = index"
       (mouseover)="indexTarefa = i"
       [@highlitedState]="indexTarefa === i ? 'highlited' : 'default'"
       >
