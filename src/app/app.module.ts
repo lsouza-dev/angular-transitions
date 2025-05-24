@@ -25,7 +25,8 @@ import { MensagemComponent } from './componentes/mensagem/mensagem.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

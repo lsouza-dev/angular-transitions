@@ -5,6 +5,8 @@
     </button>
   </div>
   <form class="formulario ff-prompt"
+    [@formButton]="formulario.valid ? 'valid' : 'invalid'"
+    [@shakeAnimation]="formulario.value"
     [formGroup]="formulario"
     *ngIf="formAberto">
     <label for="descricao">Descrição da tarefa</label>
@@ -23,7 +25,7 @@
       formControlName="prioridade"
       [ngClass]="campoValidado('prioridade')"
     >
-      <option disabled value="">Selecione</option>
+      <option value="">Selecione</option>
       <option value="Alta">Alta</option>
       <option value="Normal">Normal</option>
       <option value="Baixa">Baixa</option>
@@ -37,7 +39,7 @@
       formControlName="categoria"
       [ngClass]="campoValidado('categoria')"
     >
-      <option disabled value="">Selecione</option>
+      <option value="">Selecione</option>
       <option value="Casa">Casa</option>
       <option value="Trabalho">Trabalho</option>
       <option value="Estudos">Estudos</option>
@@ -50,12 +52,14 @@
       <button
         (click)="salvarTarefa()"
         class="botao-form"
+        id="botao-salvar"
         [ngClass]="habilitarBotao()"
         [disabled]="!formulario.valid">
           Salvar
       </button>
       <button
         (click)="cancelar()"
+        id="botao-cancelar"
         class="botao-form botao-cancelar">
           Cancelar
       </button>
@@ -72,7 +76,7 @@
     <p class="ff-prompt">O que está buscando?</p>
     <input type="search" id="campo-busca" placeholder="Digite o que procura" [(ngModel)]="campoBusca" (keyup)="filtrarTarefaPorDescricao(campoBusca)">
   </div>
-  <div *ngIf="tarefasFiltradas.length > 0, else semTarefas">
+  <div id="tarefas-container" @listState *ngIf="tarefasFiltradas.length > 0, else semTarefas">
     <div
       @filterAnimation
       class="lista-tarefas card-{{ tarefa.categoria }}"
@@ -92,8 +96,9 @@
         </p>
         <p class="status-tarefa">
           <button
+            [@checkTask]="tarefa.statusFinalizado ? 'checked' : 'unchecked'"
             [ngClass]="(tarefa.statusFinalizado == true) ? 'icone-checked' : 'icone-unchecked'"
-            (click)="finalizarTarefa(tarefa.id);">
+            (click)="finalizarTarefa(tarefa);">
           </button>
         </p>
       </div>
@@ -110,7 +115,7 @@
             <img src="assets/icones/icone-editar.png" alt="Ícone de editar">
           </button>
           <button
-            (click)="excluirTarefa(tarefa.id)"
+            (click)="excluirTarefa(tarefa)"
             class="botao-deletar">
             <img src="assets/icones/icone-excluir.png" alt="Ícone de excluir">
           </button>
@@ -120,6 +125,9 @@
   </div>
 </section>
 <ng-template #semTarefas>
-  <p class="ng-template ff-prompt">Olá! Ainda não há tarefas por aqui! :)</p>
+  <p 
+    class="ng-template ff-prompt"
+    @semTarefas
+    >Olá! Ainda não há tarefas por aqui! :)</p>
 </ng-template>
 

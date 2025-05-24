@@ -1,18 +1,32 @@
 {
   "tarefas": [
     {
-      "id": 5,
-      "descricao": "Trocar lâmpada",
+      "id": 1,
+      "descricao": "Casar com a Helena em 2027",
       "categoria": "Casa",
       "statusFinalizado": false,
       "prioridade": "Alta"
     },
     {
-      "id": 6,
-      "descricao": "Ler",
-      "statusFinalizado": true,
-      "categoria": "Estudos",
+      "id": 2,
+      "descricao": "Comprar uma casa pra minha família antes dos 30",
+      "categoria": "Casa",
+      "statusFinalizado": false,
       "prioridade": "Alta"
+    },
+    {
+      "id": 3,
+      "descricao": "Ser efetivado na Oncovit",
+      "categoria": "Trabalho",
+      "statusFinalizado": false,
+      "prioridade": "Normal"
+    },
+    {
+      "id": 4,
+      "descricao": "Ter 2 filhos antes dos 30",
+      "categoria": "Casa",
+      "statusFinalizado": true,
+      "prioridade": "Normal"
     }
   ]
 }
